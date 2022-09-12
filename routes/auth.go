@@ -9,8 +9,9 @@ import (
 )
 
 func AuthRoutes(r *mux.Router) {
-	authRepository := repositories.RepositoryAuth(mysql.DB)
-	h := handlers.HandlerAuth(authRepository)
+	userRepository := repositories.RepositoryUser(mysql.DB)
+	h := handlers.HandlerAuth(userRepository)
 
 	r.HandleFunc("/register", h.Register).Methods("POST")
+	r.HandleFunc("/login", h.Login).Methods("POST")
 }
