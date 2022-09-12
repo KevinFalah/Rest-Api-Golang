@@ -54,13 +54,16 @@ func (h *handlerAuth) Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user := models.User{
-		FullName: request.FullName,
-		Email:    request.Email,
-		Password: password,
-		Address:  request.Address,
+		FullName:  request.FullName,
+		Email:     request.Email,
+		Password:  password,
+		Address:   request.Address,
+		Subscribe: request.Subscribe,
+		Phone:     request.Phone,
+		Gender:    request.Gender,
 	}
 
-	dataUser, err := h.AuthRepository.Register(user)
+	data, err := h.AuthRepository.Register(user)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		response := dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
@@ -68,27 +71,8 @@ func (h *handlerAuth) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// generate token
-	claims := jwt.MapClaims{}
-	claims["id"] = dataUser.ID
-	claims["exp"] = time.Now().Add(time.Hour * 2).Unix()
-
-	token, errGenerateToken := jwtToken.GenerateToken(&claims)
-	if errGenerateToken != nil {
-		log.Println(errGenerateToken)
-		fmt.Println("Unauthorize")
-		return
-	}
-
-	registerResponse := authdto.RegisterResponse{
-		Email: dataUser.Email,
-		Token: token,
-	}
-
 	w.WriteHeader(http.StatusOK)
-	response := dto.SuccessResult{Code: http.StatusOK, Data: registerResponse}
-	fmt.Println(response)
-
+	response := dto.SuccessResult{Code: http.StatusOK, Data: convertUserResponse(data)}
 	json.NewEncoder(w).Encode(response)
 }
 
@@ -128,7 +112,7 @@ func (h *handlerAuth) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//generate token
+	// generate token
 	claims := jwt.MapClaims{}
 	claims["id"] = user.ID
 	claims["exp"] = time.Now().Add(time.Hour * 2).Unix() // 2 jam expired
@@ -141,8 +125,10 @@ func (h *handlerAuth) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	loginResponse := authdto.LoginResponse{
-		Email: user.Email,
-		Token: token,
+		ID:       user.ID,
+		FullName: user.FullName,
+		Email:    user.Email,
+		Token:    token,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

@@ -5,7 +5,7 @@ type TransactionRequest struct {
 	DueDate   string `json:"duedate" gorm:"type: varchar(255)"`
 	UserID    int    `json:"user_id" form:"user_id"`
 	Attache   string `json:"attache" form:"attache" gorm:"type: varchar(255)"`
-	Status    bool   `json:"status" gorm:"type:text" form:"status"`
+	Status    bool   `json:"status"`
 }
 
 type CreateTransactionRequest struct {
@@ -13,7 +13,7 @@ type CreateTransactionRequest struct {
 	DueDate   string `json:"duedate"`
 	UserID    int    `json:"user_id" form:"user_id"`
 	Attache   string `json:"attache" form:"attache" gorm:"type: varchar(255)"`
-	Status    bool   `json:"status" gorm:"type:text" form:"status"`
+	Status    bool   `json:"status" form:"status"`
 }
 
 type UpdateTransactionRequest struct {
@@ -21,5 +21,5 @@ type UpdateTransactionRequest struct {
 	DueDate   string `json:"duedate"`
 	UserID    int    `json:"user_id" form:"user_id"`
 	Attache   string `json:"attache" form:"attache" gorm:"type: varchar(255)"`
-	Status    bool   `json:"status" gorm:"type:text" form:"status"`
+	Status    bool   `json:"status"`
 }

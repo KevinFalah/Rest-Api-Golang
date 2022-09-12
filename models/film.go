@@ -6,7 +6,7 @@ type Film struct {
 	ID            int                `json:"id" gorm:"primary_key:auto_increment"`
 	Title         string             `json:"title" form:"title" gorm:"type: varchar(255)"`
 	ThumbnailFilm string             `json:"thumbnailfilm" form:"thumbnailfilm" gorm:"type: varchar(255)"`
-	Year          int                `json:"year" form:"year" gorm:"type: int"`
+	Year          string             `json:"year" form:"year" gorm:"type: varchar(255)"`
 	CategoryID    int                `json:"category_id" form:"category_id"`
 	Category      CategoriesResponse `json:"category"`
 	Description   string             `json:"description" gorm:"type:text" form:"description"`
@@ -20,7 +20,7 @@ type FilmResponse struct {
 	ID            int                `json:"id"`
 	Title         string             `json:"title"`
 	ThumbnailFilm string             `json:"thumbnailfilm"`
-	Year          int                `json:"year"`
+	Year          string             `json:"year"`
 	CategoryID    int                `json:"-"`
 	Category      CategoriesResponse `json:"category"`
 	Description   string             `json:"description"`
@@ -32,7 +32,7 @@ type FilmEpisodeResponse struct {
 	ID            int                `json:"id"`
 	Title         string             `json:"title"`
 	ThumbnailFilm string             `json:"thumbnailfilm"`
-	Year          int                `json:"year"`
+	Year          string             `json:"year"`
 	CategoryID    int                `json:"-"`
 	Category      CategoriesResponse `json:"category"`
 	// Description   string             `json:"description"`
@@ -44,7 +44,7 @@ type FilmCategoryResponse struct {
 	ID            int    `json:"id"`
 	Title         string `json:"title"`
 	ThumbnailFilm string `json:"thumbnailfilm"`
-	Year          int    `json:"year"`
+	Year          string `json:"year"`
 	CategoryID    int    `json:"-"`
 	Description   string `json:"description"`
 }

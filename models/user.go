@@ -19,7 +19,7 @@ type UserResponse struct {
 	ID        int       `json:"id"`
 	FullName  string    `json:"fullname"`
 	Email     string    `json:"email"`
-	Password  string    `json:"-"`
+	Password  string    `json:"password"`
 	Gender    string    `json:"gender"`
 	Phone     string    `json:"phone"`
 	Address   string    `json:"address"`

@@ -33,7 +33,7 @@ func (r *repository) GetEpisode(ID int) (models.Episode, error) {
 }
 
 func (r *repository) CreateEpisode(episode models.Episode) (models.Episode, error) {
-	err := r.db.Create(&episode).Error
+	err := r.db.Preload("Film").Create(&episode).Error
 
 	return episode, err
 }
