@@ -15,6 +15,6 @@ func EpisodeRoutes(r *mux.Router) {
 	r.HandleFunc("/film/{id}/episodes", h.FindEpisodes).Methods("GET")
 	r.HandleFunc("/film/{id}/episode/{id}", h.GetEpisode).Methods("GET")
 	r.HandleFunc("/episode", h.CreateEpisode).Methods("POST")
-	// r.HandleFunc("/episode/{id}", h.UpdateEpisode).Methods("PATCH")
+	r.HandleFunc("/episode/{id}", h.UpdateEpisode).Methods("PATCH")
 	r.HandleFunc("/episode/{id}", h.DeleteEpisode).Methods("DELETE")
 }
